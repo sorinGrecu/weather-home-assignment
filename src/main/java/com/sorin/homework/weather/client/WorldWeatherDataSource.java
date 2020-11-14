@@ -1,5 +1,6 @@
 package com.sorin.homework.weather.client;
 
+import com.sorin.homework.weather.aspect.Stopwatch;
 import com.sorin.homework.weather.config.properties.WeatherApiProperties;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpEntity;
@@ -15,7 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
  */
 @Log4j2
 @Service
-public class WorldWeatherDataSource implements  WeatherDataSource {
+public class WorldWeatherDataSource implements WeatherDataSource {
 
     public static final String NUM_OF_DAYS = "num_of_days";
     public static final String KEY = "key";
@@ -43,6 +44,7 @@ public class WorldWeatherDataSource implements  WeatherDataSource {
      * and Thursday, so we request one extra day as buffer for a day-change
      * scenario.
      */
+    @Stopwatch(message = "World Weather Online API call duration")
     public String getWeatherJsonForCity(String city) {
         log.info("Calling World Weather Online API for city: {}", city);
 

@@ -74,6 +74,8 @@ public class WeatherDataMapper {
         List<String> weatherDescription = JsonPath.read(jsonPayload, mapping.getDescription());
         List<String> weatherDate = JsonPath.read(jsonPayload, mapping.getDate());
 
+        log.info("Fetched {} forecasted days", tempC.size());
+
         return IntStream
                 .range(0, tempC.size())
                 .mapToObj(i ->

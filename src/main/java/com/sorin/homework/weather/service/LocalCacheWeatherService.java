@@ -3,6 +3,7 @@ package com.sorin.homework.weather.service;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import com.sorin.homework.weather.aspect.Stopwatch;
 import com.sorin.homework.weather.client.WeatherDataSource;
 import com.sorin.homework.weather.config.properties.WeatherApiProperties;
 import com.sorin.homework.weather.converter.WeatherDataMapper;
@@ -37,11 +38,13 @@ public class LocalCacheWeatherService extends WeatherService {
     }
 
     @Override
+    @Stopwatch(message = "Local cache service call duration for current weather")
     public WeatherSnapshot getCurrentWeatherForCity(String city) {
         return getFromCache(city).getCurrentWeather();
     }
 
     @Override
+    @Stopwatch(message = "Local cache service call duration for forecasted weather")
     public List<WeatherSnapshot> getForecastedWeatherForCity(String city) {
         return getFromCache(city).getForecastedWeather().stream()
                 .filter(this::isForecastInTimeFrame)

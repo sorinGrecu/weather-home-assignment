@@ -1,6 +1,7 @@
 package com.sorin.homework.weather.config.properties;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
@@ -12,7 +13,8 @@ import javax.validation.constraints.NotBlank;
  * for the weather data source, mappings between the data received from the data source and our DTOs and
  * the number of days that should be shown by our forecast endpoint.
  */
-@Data
+@Getter
+@Setter
 @Validated
 @ConfigurationProperties(prefix = "weather.api")
 public class WeatherApiProperties {
