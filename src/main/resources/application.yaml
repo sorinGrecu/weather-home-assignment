@@ -1,0 +1,14 @@
+weather:
+  api:
+    mapping:
+      current-weather:
+        temp-c: "$.data.current_condition[0].temp_C"
+        temp-f: "$.data.current_condition[0].temp_F"
+        humidity: "$.data.current_condition[0].humidity"
+        description: "$.data.current_condition[0].weatherDesc[0].value"
+      forecast-weather:
+        date: "$.data.weather[1:].hourly[0].tempC"
+        temp-c: "$.data.weather[1:].hourly[0].tempC"
+        temp-f: "$.data.weather[1:].hourly[0].tempF"
+        humidity: "$.data.weather[1:].hourly[0].humidity"
+        description: "$.data.weather[1:].hourly[0].weatherDesc[0].value"
