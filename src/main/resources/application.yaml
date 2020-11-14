@@ -1,14 +1,24 @@
 weather:
   api:
+    key: c4a83f0410c8446c8fa144955201311
+    # Number of days shown in the response. This will be different from the number of days received
+    # from the weather data source
+    number-of-days: 3
+    humidity-as-decimals: true
+    # Mapping between our own DTOs and the data received from the weather data source
     mapping:
       current-weather:
         temp-c: "$.data.current_condition[0].temp_C"
         temp-f: "$.data.current_condition[0].temp_F"
         humidity: "$.data.current_condition[0].humidity"
         description: "$.data.current_condition[0].weatherDesc[0].value"
+      # The data in the forecast weather will be represented by an array in which we will skip
+      # the first element as that represents the weather for the current day, while we are
+      # only interested in the days after today
       forecast-weather:
-        date: "$.data.weather[1:].hourly[0].tempC"
+        date: "$.data.weather[1:].date"
         temp-c: "$.data.weather[1:].hourly[0].tempC"
         temp-f: "$.data.weather[1:].hourly[0].tempF"
         humidity: "$.data.weather[1:].hourly[0].humidity"
         description: "$.data.weather[1:].hourly[0].weatherDesc[0].value"
+        date-format: "yyyy-MM-dd"
