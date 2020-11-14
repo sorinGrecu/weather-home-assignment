@@ -1,9 +1,9 @@
 weather:
   api:
-    key: c4a83f0410c8446c8fa144955201311
+    key: ${WWO_KEY}
     # Number of days shown in the response. This will be different from the number of days received
     # from the weather data source
-    number-of-days: 3
+    number-of-days: ${APP_DAY_COUNT}
     humidity-as-decimals: true
     # Mapping between our own DTOs and the data received from the weather data source
     mapping:
