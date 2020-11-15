@@ -12,15 +12,16 @@ weather:
         temp-f: "$.data.current_condition[0].temp_F"
         humidity: "$.data.current_condition[0].humidity"
         description: "$.data.current_condition[0].weatherDesc[0].value"
-      # The data in the forecast weather will be represented by an array in which we will skip
+      # The data in the forecast weather will be represented by an array. We could actuallly skip
       # the first element as that represents the weather for the current day, while we are
-      # only interested in the days after today
+      # only interested in the days after today, but for locations that already had
+      # a day change we would skip their first day, which actually interests us
       forecast-weather:
-        date: "$.data.weather[1:].date"
-        temp-c: "$.data.weather[1:].hourly[0].tempC"
-        temp-f: "$.data.weather[1:].hourly[0].tempF"
-        humidity: "$.data.weather[1:].hourly[0].humidity"
-        description: "$.data.weather[1:].hourly[0].weatherDesc[0].value"
+        date: "$.data.weather[0:].date"
+        temp-c: "$.data.weather[0:].hourly[0].tempC"
+        temp-f: "$.data.weather[0:].hourly[0].tempF"
+        humidity: "$.data.weather[0:].hourly[0].humidity"
+        description: "$.data.weather[0:].hourly[0].weatherDesc[0].value"
         date-format: "yyyy-MM-dd"
 
 cache:

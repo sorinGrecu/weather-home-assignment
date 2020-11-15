@@ -1,6 +1,10 @@
 package com.sorin.homework.weather.config.properties;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
@@ -15,9 +19,8 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @Validated
-@Builder(setterPrefix = "with")
 @NoArgsConstructor
-@AllArgsConstructor
+@SuperBuilder(setterPrefix = "with")
 @ConfigurationProperties(prefix = "weather.api")
 public class WeatherApiProperties {
     @NotBlank(message = "Please define an API key in the properties")
