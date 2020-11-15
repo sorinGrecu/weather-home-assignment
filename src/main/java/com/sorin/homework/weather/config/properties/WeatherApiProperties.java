@@ -24,6 +24,6 @@ public class WeatherApiProperties {
     private String key;
     @Min(1)
     private Integer numberOfDays;
-    private ApiMappingProperties mapping=new ApiMappingProperties();
+    private ApiMappingProperties mapping;
     private Boolean humidityAsDecimals;
 }

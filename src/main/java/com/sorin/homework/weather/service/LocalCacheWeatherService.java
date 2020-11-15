@@ -4,7 +4,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.sorin.homework.weather.aspect.Stopwatch;
-import com.sorin.homework.weather.client.WeatherDataSource;
+import com.sorin.homework.weather.client.WeatherClient;
 import com.sorin.homework.weather.config.properties.WeatherApiProperties;
 import com.sorin.homework.weather.converter.WeatherDataMapper;
 import com.sorin.homework.weather.exception.ClientApiException;
@@ -16,19 +16,23 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+/**
+ * Implementation of {@link WeatherService} relying on a local cache implemented through Google Guava's
+ * {@link LoadingCache} that holds weather data cached for an amount of time that is configurable
+ * through Spring properties
+ */
 @Log4j2
 @Service
 public class LocalCacheWeatherService extends WeatherService {
     private final LoadingCache<String, WeatherAggregateData> cache;
     @Value("${cache.expire.afterH}")
-    private Integer expireAfterH=1;
+    private final Integer expireAfterH = 1;
 
-    public LocalCacheWeatherService(WeatherDataSource dataSource, WeatherDataMapper mapper, WeatherApiProperties properties) {
-        super(dataSource, mapper, properties);
+    public LocalCacheWeatherService(WeatherClient client, WeatherDataMapper mapper, WeatherApiProperties properties) {
+        super(client, mapper, properties);
         this.cache = CacheBuilder.newBuilder()
                 .expireAfterWrite(expireAfterH, TimeUnit.HOURS)
                 .build(new CacheLoader<>() {
@@ -56,8 +60,8 @@ public class LocalCacheWeatherService extends WeatherService {
     private WeatherAggregateData getFromCache(String city) {
         try {
             return this.cache.get(city);
-        } catch (ExecutionException e) {
-            log.error("Could not find city {} in the cache. Reason:{}", city, e.getMessage());
+        } catch (Exception e) {
+            log.error("Could not find city {} in the cache. Reason: {}", city, e.getMessage());
             throw new ResourceNotFoundException("Could not find data for this city", e);
         }
     }

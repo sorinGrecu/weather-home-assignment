@@ -2,13 +2,14 @@ package com.sorin.homework.weather.config.properties;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.springframework.boot.context.properties.ConstructorBinding;
 
 /**
  * Class holding properties related to the mapping between the World Weather Online (WWO) API and our own DTOs
  */
 @Getter
-@Setter
 @NoArgsConstructor
+@ConstructorBinding
 @AllArgsConstructor
 @Builder(setterPrefix = "with")
 public class ApiMappingProperties {
@@ -16,21 +17,21 @@ public class ApiMappingProperties {
     private ForecastWeatherMapping forecastWeather;
 
     @Getter
-    @Setter
+    @ConstructorBinding
     @SuperBuilder(setterPrefix = "with")
     public static class CurrentWeatherMapping {
-        private String tempC;
-        private String tempF;
-        private String humidity;
-        private String description;
+        private final String tempC;
+        private final String tempF;
+        private final String humidity;
+        private final String description;
     }
 
     @Getter
-    @Setter
+    @ConstructorBinding
     @SuperBuilder(setterPrefix = "with")
     public static class ForecastWeatherMapping extends CurrentWeatherMapping {
-        private String date;
-        private String dateFormat;
+        private final String date;
+        private final String dateFormat;
     }
 
 }

@@ -9,6 +9,11 @@ public class ExceptionUtils {
     public static final String ERROR_JSON_PATH = "$.data.error[0].msg";
     public static final String NO_EXCEPTION_CAUSE_AVAILABLE = "No exception cause available";
 
+    /**
+     * Given a JSON String it will use the json path defined by ExceptionUtils.ERROR_JSON_PATH
+     * to return the error message found at said path. If the path is invalid,
+     * ExceptionUtils.NO_EXCEPTION_CAUSE_AVAILABLE is returned.
+     */
     public static String readErrorMessageFromPayload(String jsonPayload) {
         try {
             return JsonPath.read(jsonPayload, ERROR_JSON_PATH);

@@ -34,6 +34,13 @@ public class WeatherDataMapper {
         this.weatherApiProperties = weatherApiProperties;
     }
 
+    /**
+     * @param jsonPayload the JSON payload representing the data from which we should extract the weather data
+     *                    that we will map to our DTOs
+     * @return {@link WeatherAggregateData} holding weather data, current weather and a list of forecasted
+     * weather, both represented through {@link WeatherSnapshot}
+     * @throws ClientApiException if mapping of the JSON fails
+     */
     public WeatherAggregateData convertJsonToData(String jsonPayload) throws ClientApiException {
         log.info("Converting JSON payload to model");
         try {
@@ -46,6 +53,10 @@ public class WeatherDataMapper {
         }
     }
 
+    /**
+     * Converts a given JSON String into {@link WeatherSnapshot}, representing the current weather, based on the
+     * mapping found in the properties
+     */
     private WeatherSnapshot jsonToCurrentWeather(String jsonPayload) {
         ApiMappingProperties.CurrentWeatherMapping mapping = weatherApiProperties.getMapping().getCurrentWeather();
         String tempC = JsonPath.read(jsonPayload, mapping.getTempC());
@@ -63,7 +74,8 @@ public class WeatherDataMapper {
     }
 
     /**
-     * Given a json payload it will read the values we are interested in from the forecast array TODO: finish jdoc
+     * Converts a given JSON String into a List of {@link WeatherSnapshot}, representing the forecasted weather
+     * for the next days based on the mapping found in the properties
      */
     private List<WeatherSnapshot> jsonToForecastedWeather(String jsonPayload) {
         ApiMappingProperties.ForecastWeatherMapping mapping = weatherApiProperties.getMapping().getForecastWeather();

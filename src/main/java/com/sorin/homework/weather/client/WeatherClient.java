@@ -3,7 +3,7 @@ package com.sorin.homework.weather.client;
 /**
  * Data source for our weather application
  */
-public interface WeatherDataSource {
+public interface WeatherClient {
 
     /**
      * Given a city, it will return a String containing a JSON formatted payload containing the weather information

@@ -1,6 +1,6 @@
 weather:
   api:
-    key: ${WWO_KEY}
+    key: dummyKey
     # Number of days shown in the response. This will be different from the number of days received
     # from the weather data source
     number-of-days: 3
@@ -22,7 +22,6 @@ weather:
         humidity: "$.data.weather[1:].hourly[0].humidity"
         description: "$.data.weather[1:].hourly[0].weatherDesc[0].value"
         date-format: "yyyy-MM-dd"
-
 
 cache:
   expire:

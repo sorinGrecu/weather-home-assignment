@@ -1,6 +1,5 @@
 package com.sorin.homework.weather.aspect;
 
-import com.google.common.base.Strings;
 import lombok.extern.log4j.Log4j2;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -11,6 +10,9 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import java.lang.reflect.Method;
 
+/**
+ * Aspect for {@link Stopwatch}, measuring and logging the time it takes for a method to run
+ */
 @Log4j2
 @Aspect
 @Configuration
@@ -25,10 +27,7 @@ public class StopwatchAspect {
         Method method = signature.getMethod();
         Stopwatch stopwatch = method.getAnnotation(Stopwatch.class);
         String annotationMessage = stopwatch.message();
-        if (Strings.isNullOrEmpty(annotationMessage))
-            log.info("Method {} executed in {} ms", joinPoint.getSignature().toShortString(), t0);
-        else
-            log.info("{}: {} ms", annotationMessage, t0);
+        log.info("{}: {} ms", annotationMessage, t0);
         return proceed;
     }
 }

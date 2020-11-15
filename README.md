@@ -1,3 +1,8 @@
-# weather-home-assignment
+# Home assignment: Weather Application
 
-To be written after development is fully done
+
+
+
+
+
+

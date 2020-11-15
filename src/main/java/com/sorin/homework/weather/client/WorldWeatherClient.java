@@ -16,7 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
  */
 @Log4j2
 @Service
-public class WorldWeatherDataSource implements WeatherDataSource {
+public class WorldWeatherClient implements WeatherClient {
 
     public static final String NUM_OF_DAYS = "num_of_days";
     public static final String KEY = "key";
@@ -28,7 +28,7 @@ public class WorldWeatherDataSource implements WeatherDataSource {
     private final WeatherApiProperties weatherApiProperties;
     private final RestTemplate restTemplate;
 
-    public WorldWeatherDataSource(WeatherApiProperties weatherApiProperties, RestTemplate restTemplate) {
+    public WorldWeatherClient(WeatherApiProperties weatherApiProperties, RestTemplate restTemplate) {
         this.weatherApiProperties = weatherApiProperties;
         this.restTemplate = restTemplate;
     }

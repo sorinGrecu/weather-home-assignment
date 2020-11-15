@@ -65,21 +65,21 @@ class WeatherDataMapperTest {
     @Test
     void convertJsonToData_shouldThrowExceptionOnErrorResponseFromApi_withNoMessage() {
         // when
+        // then
         Exception exception = assertThrows(ClientApiException.class,
                 () -> weatherDataMapper.convertJsonToData(ERROR_RESPONSE_NO_DATA));
         String actualMessage = exception.getMessage();
-        // then
         assertTrue(actualMessage.contains(NO_EXCEPTION_CAUSE_AVAILABLE));
     }
 
     @Test
     void convertJsonToData_shouldThrowExceptionOnErrorResponseFromApi_withDetailedMessage() {
         // when
+        // then
         Exception exception = assertThrows(ClientApiException.class,
                 () -> weatherDataMapper.convertJsonToData(ERROR_RESPONSE));
         String expectedMessage = "Unable to find any matching weather location to the query submitted!";
         String actualMessage = exception.getMessage();
-        // then
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
