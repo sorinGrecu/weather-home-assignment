@@ -18,6 +18,6 @@ public class WeatherSnapshot {
     private LocalDate date;
     private double tempC;
     private double tempF;
-    private double humidity;
     private String condition;
+    private double humidity;
 }

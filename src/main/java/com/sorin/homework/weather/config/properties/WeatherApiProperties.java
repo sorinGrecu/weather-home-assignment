@@ -1,6 +1,5 @@
 package com.sorin.homework.weather.config.properties;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,7 +25,7 @@ public class WeatherApiProperties {
     @NotBlank(message = "Please define an API key in the properties")
     private String key;
     @Min(1)
-    private Integer numberOfDays;
+    private Integer numberOfDays = 3;
     private ApiMappingProperties mapping;
-    private Boolean humidityAsDecimals;
+    private Boolean humidityAsDecimals = true;
 }
