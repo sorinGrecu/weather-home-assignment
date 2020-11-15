@@ -1,0 +1,9 @@
+{
+  "data": {
+    "error": [
+      {
+        "notWhatWeAreLookingFor": "Unable to find any matching weather location to the query submitted!"
+      }
+    ]
+  }
+}

@@ -1,7 +1,6 @@
 package com.sorin.homework.weather.config.properties;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
@@ -16,12 +15,15 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @Validated
+@Builder(setterPrefix = "with")
+@NoArgsConstructor
+@AllArgsConstructor
 @ConfigurationProperties(prefix = "weather.api")
 public class WeatherApiProperties {
     @NotBlank(message = "Please define an API key in the properties")
     private String key;
     @Min(1)
     private Integer numberOfDays;
-    private ApiMappingProperties mapping;
+    private ApiMappingProperties mapping=new ApiMappingProperties();
     private Boolean humidityAsDecimals;
 }

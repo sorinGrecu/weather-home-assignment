@@ -74,7 +74,7 @@ public class WeatherDataMapper {
         List<String> weatherDescription = JsonPath.read(jsonPayload, mapping.getDescription());
         List<String> weatherDate = JsonPath.read(jsonPayload, mapping.getDate());
 
-        log.info("Fetched {} forecasted days", tempC.size());
+        log.info("Fetched {} forecasted days from the JSON response", tempC.size());
 
         return IntStream
                 .range(0, tempC.size())
@@ -85,16 +85,16 @@ public class WeatherDataMapper {
                                 .withTempC(Double.parseDouble(tempC.get(i)))
                                 .withTempF(Double.parseDouble(tempF.get(i)))
                                 .withCondition(weatherDescription.get(i))
-                                .build()
-                ).collect(Collectors.toList());
+                                .build())
+                .collect(Collectors.toList());
     }
 
     /**
-     * Casts the humidity String returned from the JSON to double to comply with the API specifications.
+     * Casts the humidity String returned from the JSON to {@link Double} to comply with the API specifications.
      * Based on the properties it will either return a decimal value between [0,1] or a percentage
      * value between [0,100]
      */
-    private Double castHumidityToDouble(String humidity, WeatherApiProperties weatherApiProperties) {
+    protected Double castHumidityToDouble(String humidity, WeatherApiProperties weatherApiProperties) {
         double humidityValue = Double.parseDouble(humidity);
         return humidityValue == 0 ? 0D : weatherApiProperties.getHumidityAsDecimals() ? humidityValue / 100 : humidityValue;
     }

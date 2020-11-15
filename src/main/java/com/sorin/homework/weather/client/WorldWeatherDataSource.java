@@ -23,14 +23,14 @@ public class WorldWeatherDataSource implements WeatherDataSource {
     public static final String TIME_INTERVAL = "tp";
     public static final String CITY_NAME = "q";
     public static final String FORMAT = "format";
-    private static final String API_WEATHER_URL = "http://api.worldweatheronline.com/premium/v1/weather.ashx";
+    public static final String API_WEATHER_URL = "http://api.worldweatheronline.com/premium/v1/weather.ashx";
 
     private final WeatherApiProperties weatherApiProperties;
     private final RestTemplate restTemplate;
 
-    public WorldWeatherDataSource(WeatherApiProperties weatherApiProperties) {
+    public WorldWeatherDataSource(WeatherApiProperties weatherApiProperties, RestTemplate restTemplate) {
         this.weatherApiProperties = weatherApiProperties;
-        this.restTemplate = new RestTemplate();
+        this.restTemplate = restTemplate;
     }
 
     /**

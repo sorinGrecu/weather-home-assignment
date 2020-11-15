@@ -12,6 +12,7 @@ import com.sorin.homework.weather.exception.ResourceNotFoundException;
 import com.sorin.homework.weather.model.WeatherAggregateData;
 import com.sorin.homework.weather.model.WeatherSnapshot;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,13 +23,14 @@ import java.util.stream.Collectors;
 @Log4j2
 @Service
 public class LocalCacheWeatherService extends WeatherService {
-
     private final LoadingCache<String, WeatherAggregateData> cache;
+    @Value("${cache.expire.afterH}")
+    private Integer expireAfterH=1;
 
     public LocalCacheWeatherService(WeatherDataSource dataSource, WeatherDataMapper mapper, WeatherApiProperties properties) {
         super(dataSource, mapper, properties);
         this.cache = CacheBuilder.newBuilder()
-                .expireAfterWrite(1, TimeUnit.HOURS)
+                .expireAfterWrite(expireAfterH, TimeUnit.HOURS)
                 .build(new CacheLoader<>() {
                     @Override
                     public WeatherAggregateData load(final String city) throws ClientApiException {
